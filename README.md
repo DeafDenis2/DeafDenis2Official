@@ -1,3 +1,6 @@
 ﻿# DeafDenis2Official
-##Lol?
+You Good?
+# Lol
+
+### LOL :)
 # O_o
