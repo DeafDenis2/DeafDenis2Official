@@ -1,0 +1,203 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #1f0033;
+}
+
+h1 {
+  margin-top: 60px;
+  margin-left: 10px;
+}
+
+h2, p {
+  margin: 10px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333333;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+ul li {
+  float: left;
+}
+
+ul li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+ul li a:hover:not(.active) {
+  background-color: #7700ff6c;
+}
+
+ul li a.active {
+  background-color: #4f006e;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.H1Twitch  {
+  background-color: purple;
+  Font-size: 20px;
+  text-align: center;
+}
+
+.ImageBaksash {
+  border-radius: 8px;
+}
+
+
+
+
+
+
+
+
+
+
+.ww {
+  background-color: #52001b;
+  font-size: 30px;
+  text-align: center;
+}
+.Stext {
+    font-size: 20px;
+    font-family: sans-serif;
+    text-align: center;
+}
+.delete {
+    text-box: swap;
+    text-align: center;w
+}
+
+div {
+  background-color: #d5f4e6;
+}
+
+span {
+  background-color: #f18973;
+}
+
+
+.delete {
+    color: rgb(42, 165, 104);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+}
+
+
+
+
+
+
+ul {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+
+.center-text {
+    
+}
+
+
+* {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  border-radius: 25px;
+}
+
+.выполнить-главный {
+    background-color: #333333;
+    padding: 10px;
+    font-size: 40px;
+    color: rgb(255, 0, 179);
+    border: 3px solid #8c00ff;
+    text-shadow: 0 0 10px #ffffff;
+    text-align: center;
+    block-size: 200px;
+}
+
+.выполнить {
+    font-size: 20px;
+    color: rgb(255, 0, 221);
+    text-shadow: 0 0 7px #cc5eff;
+    text-align: left;
+}
+
+
+.выполнить-очистить {
+    background-color: #333333;
+    padding: 10px;
+    font-size: 40px;
+    color: rgb(255, 0, 179);
+    border: 3px solid #8c00ff;
+    text-shadow: 0 0 10px #ffffff;
+    text-align: center;
+    block-size: auto;
+}
+
+.очистить {
+    font-size: 20px;
+    color: rgb(255, 0, 221);
+    text-shadow: 0 0 7px #cc5eff;
+    text-align: left;
+}
+.можно {
+    font-size: 25px;
+    color: grey;
+    text-shadow: 0 0 3px blue;
+    text-align: left;
+}
+.можно-ответ {
+  font-size: 15px;
+  color: #333333;
+}
+.H2можно-ответ {
+  font-size: 20px;
+  color: #333333;
+}
+
+.rounded-md {
+  background-color: #cc5eff;
+  border: #52001b;
+  border-radius: .375rem;
+    border-top-left-radius: 0.375rem;
+    border-top-right-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+    border-bottom-left-radius: 0.375rem;
+}
+
+
+.DEAF1 {
+  border: forestgreen;
+  border-radius: 10px;
+  background-color: grey;
+}
+
+.text-align {
+    font-size: 20px;
+    color: rgb(255, 0, 221);
+    text-shadow: 0 0 7px #cc5eff;
+    text-align: left;
+}
