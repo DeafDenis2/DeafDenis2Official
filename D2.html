@@ -1,609 +1,246 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reverse Engineering Tools</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Добро пожаловать на страницу DeafDenis2 — официальные ссылки и поддержка в Telegram.">
+    <title>DeafDenis2 — Официально</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-         :root {
-            --primary: #00c6ff;
-            --secondary: #0072ff;
-            --dark: #0c0c0c;
-            --dark-blue: #1a1a2e;
-            --card-bg: rgba(30, 30, 46, 0.85);
-            --text-light: #e0e0e0;
-            --text-gray: #a0a0a0;
-            --nav-bg: rgba(10, 10, 20, 0.95);
-        }
-        
-        body {
-            background: linear-gradient(135deg, var(--dark), var(--dark-blue));
-            color: var(--text-light);
-            min-height: 100vh;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-        /* Navigation Styles */
-        
-        .navbar {
-            background: var(--nav-bg);
-            padding: 0.8rem 1.5rem;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 114, 255, 0.2);
-        }
-        
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-        
-        .nav-item {
-            position: relative;
-        }
-        
-        .nav-link {
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 0;
-            transition: color 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-        
-        .nav-link:hover {
-            color: var(--primary);
-        }
-        
-        .dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: var(--nav-bg);
-            min-width: 220px;
-            border-radius: 0 0 8px 8px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0, 114, 255, 0.2);
-            border-top: none;
-            z-index: 1001;
-        }
-        
-        .dropdown-item {
-            display: block;
-            padding: 0.8rem 1.2rem;
-            color: var(--text-light);
-            text-decoration: none;
-            transition: all 0.2s ease;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        .dropdown-item:last-child {
-            border-bottom: none;
-        }
-        
-        .dropdown-item:hover {
-            background: rgba(0, 114, 255, 0.1);
-            color: var(--primary);
-            padding-left: 1.5rem;
-        }
-        
-        .nav-item:hover .dropdown {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            font-size: 1.5rem;
-            color: var(--text-light);
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-        
-        .title {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 800;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 1rem;
-            text-shadow: 0 0 15px rgba(0, 114, 255, 0.3);
-            position: relative;
-            display: inline-block;
-            line-height: 1.2;
-        }
-        
-        .title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 10%;
-            width: 80%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
-            border-radius: 50%;
-        }
-        
-        .subtitle {
-            font-size: clamp(1rem, 3vw, 1.3rem);
-            color: var(--text-gray);
-            margin-bottom: 1.5rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .welcome {
-            font-size: clamp(1.2rem, 3.5vw, 1.6rem);
-            color: var(--primary);
-            margin-bottom: 2rem;
-            text-align: center;
-            animation: pulse 2s infinite;
-            font-weight: 600;
-        }
-        
-        @keyframes pulse {
-            0% {
-                opacity: 0.7;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0.7;
-            }
-        }
-        
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .tool-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: clamp(1.5rem, 4vw, 2.5rem);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0, 114, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        
-        .tool-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0, 198, 255, 0.1), rgba(0, 114, 255, 0.1));
-            z-index: -1;
-            transition: opacity 0.3s ease;
-            opacity: 0;
-        }
-        
-        .tool-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 25px rgba(0, 114, 255, 0.2);
-            border-color: rgba(0, 114, 255, 0.5);
-        }
-        
-        .tool-card:hover::before {
-            opacity: 1;
-        }
-        
-        .tool-icon {
-            font-size: clamp(2rem, 5vw, 3rem);
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-            text-align: center;
-        }
-        
-        .tool-name {
-            font-size: clamp(1.3rem, 3.5vw, 1.7rem);
-            margin-bottom: 1rem;
-            color: #ffffff;
-            text-align: center;
-            font-weight: 700;
-        }
-        
-        .tool-desc {
-            color: var(--text-gray);
-            line-height: 1.6;
-            font-size: clamp(0.9rem, 2.5vw, 1.05rem);
-            flex-grow: 1;
-        }
-        
-        .binary-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0.07;
-        }
-        
-        .binary-digit {
-            position: absolute;
-            color: var(--primary);
-            font-family: monospace;
-            font-size: clamp(0.9rem, 2vw, 1.2rem);
-            animation: fall linear infinite;
-        }
-        
-        @keyframes fall {
-            to {
-                transform: translateY(100vh);
-            }
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 4rem;
-            padding: 2rem;
-            color: #666;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: clamp(0.9rem, 2.5vw, 1rem);
-        }
-        
-        .glow {
-            text-shadow: 0 0 10px rgba(0, 198, 255, 0.7);
-        }
-        
-        .tagline {
-            font-style: italic;
-            margin-top: 0.5rem;
-            font-size: clamp(0.85rem, 2.5vw, 1rem);
-        }
-        /* Section for smooth scrolling */
-        
-        .section {
-            scroll-margin-top: 80px;
-        }
-        /* Responsive adjustments */
-        
-        @media (max-width: 768px) {
-            .nav-menu {
-                position: fixed;
-                top: 60px;
-                right: -100%;
-                flex-direction: column;
-                background: var(--nav-bg);
-                width: 80%;
-                max-width: 300px;
-                height: calc(100vh - 60px);
-                padding: 2rem;
-                transition: right 0.3s ease;
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
-                overflow-y: auto;
-            }
-            .nav-menu.active {
-                right: 0;
-            }
-            .dropdown {
-                position: static;
-                opacity: 1;
-                visibility: visible;
-                transform: none;
-                box-shadow: none;
-                border: none;
-                background: transparent;
-                margin-left: 1rem;
-                margin-top: 0.5rem;
-                display: none;
-            }
-            .nav-item:hover .dropdown {
-                display: block;
-            }
-            .hamburger {
-                display: block;
-            }
-            .container {
-                padding: 1.5rem 1rem;
-            }
-            .tools-grid {
-                gap: 1.5rem;
-            }
-            .tool-card {
-                padding: 1.5rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .container {
-                padding: 1rem 0.8rem;
-            }
-            .tools-grid {
-                gap: 1rem;
-            }
-            .tool-card {
-                padding: 1.2rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">
-                <i class="fas fa-microchip"></i> RE Tools
-            </a>
+    <a class="skip-link" href="#main">Перейти к содержанию</a>
 
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#tools" class="nav-link">Tools</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        Reverse Engineering 
-                        <i class="fas fa-chevron-down"></i>
-                    </a>
-                    <div class="dropdown">
-                        <a href="#system-informer" class="dropdown-item">
-                            <i class="fas fa-binoculars"></i> System Informer
-                        </a>
-                        <a href="#dnspy" class="dropdown-item">
-                            <i class="fas fa-code"></i> DnSpy
-                        </a>
-                        <a href="#x64dbg" class="dropdown-item">
-                            <i class="fas fa-bug"></i> x64dbg
-                        </a>
-                        <a href="#resources" class="dropdown-item">
-                            <i class="fas fa-book"></i> Resources
-                        </a>
-                        <a href="#tutorials" class="dropdown-item">
-                            <i class="fas fa-graduation-cap"></i> Tutorials
-                        </a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">Contact</a>
-                </li>
-            </ul>
+    <!-- animated background layers -->
+    <div class="bg-animated" aria-hidden="true"></div>
+    <div class="matrix" aria-hidden="true"></div>
 
-            <div class="hamburger">
-                <i class="fas fa-bars"></i>
+    <!-- Fixed topbar with Telegram and Twitch icons -->
+    <nav class="topbar" aria-label="Верхняя панель">
+        <div class="topbar-inner container" style="justify-content: center;">
+            <span class="brand">DeafDenis2</span>
+            <div class="topbar-right">
+                <div class="live-wrap">
+                    <span class="live-badge" aria-hidden="true">LIVE</span>
+                </div>
+                <!-- aria-live region for screen readers -->
+                <div id="liveRegion" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+                <!-- Always top open-down navigation buttons -->
+                <a class="btn" href="D2.html">DeafDenis2</a>
+                <a class="btn" href="Fix.html">Fix</a>
+                <a class="btn" href="Download.html">Download</a>
             </div>
         </div>
     </nav>
 
-    <div class="binary-animation" id="binaryAnimation"></div>
+    <main id="main" class="container">
+        <!-- Hero box centered with cool blue/black effect -->
+        <div class="hero-box">
+            <h1>Добро пожаловать — DeafDenis2</h1>
+            <p class="lead">Всегда язык: русский</p>
+            <div class="hero-actions">
+                <a class="btn" href="https://t.me/DeafDenis2YT_777" target="_blank" rel="noopener">Официальный канал</a>
+                <a class="btn ghost" href="https://t.me/DeafDenis2YT" target="_blank" rel="noopener">Группа</a>
+            </div>
+        </div>
 
-    <div class="container">
-        <header>
-            <h1 class="title">Reverse Engineering</h1>
-            <p class="subtitle">Advanced tools and techniques for deep software analysis and system understanding</p>
-            <div class="welcome">Welcome to the World of Reverse Engineering</div>
-        </header>
+        <section aria-labelledby="contacts">
+            <h2 id="contacts">Контакты и ссылки</h2>
+            <p><i class="fab fa-telegram big-icon" aria-hidden="true"></i>Официальный канал: <a href="https://t.me/DeafDenis2YT_777" target="_blank" rel="noopener">@DeafDenis2YT_777</a></p>
+            <p>Группа: <a href="https://t.me/DeafDenis2YT" target="_blank" rel="noopener">DeafDenis2YT</a></p>
 
-        <main>
-            <div class="tools-grid">
-                <div class="tool-card section" id="system-informer">
-                    <div class="tool-icon"><i class="fas fa-binoculars"></i></div>
-                    <h2 class="tool-name">System Informer</h2>
-                    <p class="tool-desc">A powerful system utility designed to provide detailed information about system resources, processes, and performance metrics. Essential for analyzing running processes, monitoring system behavior, and troubleshooting performance issues.</p>
-                    <p class="tagline">See what's happening under the hood</p>
+            <h3>Поддержка (DEAF)</h3>
+            <ul>
+                <li><a href="https://t.me/tasmadan" target="_blank" rel="noopener">Tasmadan</a></li>
+                <li><a href="https://t.me/millenniumillerlife" target="_blank" rel="noopener">MILENA MILLER</a></li>
+            </ul>
+
+            <h3>Другие контакты</h3>
+            <ul>
+                <li><a href="https://t.me/KingBumixa" target="_blank" rel="noopener">KingBumixa</a></li>
+                <li><a href="https://t.me/white_lion_18" target="_blank" rel="noopener">White Lion 18</a></li>
+                <li><a href="https://t.me/Vesoyz_3" target="_blank" rel="noopener">Vesoyz_3</a></li>
+                <li><a href="https://t.me/bronza8888" target="_blank" rel="noopener">Bronza8888</a></li>
+                <li><a href="https://t.me/distrimtwich" target="_blank" rel="noopener">ДиСтрим</a></li>
+                <li><a href="https://t.me/baksash" target="_blank" rel="noopener">BakSash</a></li>
+            </ul>
+        </section>
+
+
+        <!-- Поддержка стримов (Twitch) -->
+        <section aria-labelledby="twitch-support">
+            <h2 id="twitch-support"><i class="fab fa-twitch big-icon" aria-hidden="true"></i>Поддержка стримов (Twitch)</h2>
+            <div class="twitch-list">
+                <!-- Карточки стримеров, будут обновляться через JS -->
+                <div class="twitch-card" data-channel="alexander_deaf">
+                    <div class="twitch-status offline">Не в сети</div>
+                    <div class="twitch-embed"></div>
+                    <a href="https://www.twitch.tv/alexander_deaf" target="_blank" rel="noopener">alexander_deaf</a>
                 </div>
-
-                <div class="tool-card section" id="dnspy">
-                    <div class="tool-icon"><i class="fas fa-code"></i></div>
-                    <h2 class="tool-name">DnSpy</h2>
-                    <p class="tool-desc">A comprehensive tool to reverse engineer .NET assemblies. It can be used to debug, decompile, and edit assemblies even without source code available, making it invaluable for .NET application analysis and security research.</p>
-                    <p class="tagline">Decompile, debug, discover</p>
+                <div class="twitch-card" data-channel="kingbumixa">
+                    <div class="twitch-status offline">Не в сети</div>
+                    <div class="twitch-embed"></div>
+                    <a href="https://www.twitch.tv/kingbumixa" target="_blank" rel="noopener">kingbumixa</a>
                 </div>
-
-                <div class="tool-card section" id="x64dbg">
-                    <div class="tool-icon"><i class="fas fa-bug"></i></div>
-                    <h2 class="tool-name">x64dbg</h2>
-                    <p class="tool-desc">An open-source x64/x32 debugger for Windows. Used for dynamic analysis of binaries, it's a popular alternative to commercial debuggers in the reverse engineering community, featuring a rich plugin ecosystem.</p>
-                    <p class="tagline">Debug with precision and power</p>
+                <div class="twitch-card" data-channel="vesoyz3">
+                    <div class="twitch-status offline">Не в сети</div>
+                    <div class="twitch-embed"></div>
+                    <a href="https://www.twitch.tv/vesoyz3" target="_blank" rel="noopener">vesoyz3</a>
+                </div>
+                <div class="twitch-card" data-channel="tasmadan">
+                    <div class="twitch-status offline">Не в сети</div>
+                    <div class="twitch-embed"></div>
+                    <a href="https://www.twitch.tv/tasmadan" target="_blank" rel="noopener">tasmadan</a>
+                </div>
+                <div class="twitch-card" data-channel="baksash">
+                    <div class="twitch-status offline">Не в сети</div>
+                    <div class="twitch-embed"></div>
+                    <a href="https://www.twitch.tv/baksash" target="_blank" rel="noopener">baksash</a>
+                </div>
+                <div class="twitch-card" data-channel="voandrei_">
+                    <div class="twitch-status offline">Не в сети</div>
+                    <div class="twitch-embed"></div>
+                    <a href="https://www.twitch.tv/voandrei_" target="_blank" rel="noopener">voandrei_</a>
+                </div>
+                <div class="twitch-card" data-channel="bykzilla">
+                    <div class="twitch-status offline">Не в сети</div>
+                    <div class="twitch-embed"></div>
+                    <a href="https://www.twitch.tv/bykzilla" target="_blank" rel="noopener">bykzilla</a>
+                </div>
+                <div class="twitch-card" data-channel="ssstied">
+                    <div class="twitch-status offline">Не в сети</div>
+                    <div class="twitch-embed"></div>
+                    <a href="https://www.twitch.tv/ssstied" target="_blank" rel="noopener">ssstied</a>
+                </div>
+                <div class="twitch-card" data-channel="bronza888">
+                    <div class="twitch-status offline">Не в сети</div>
+                    <div class="twitch-embed"></div>
+                    <a href="https://www.twitch.tv/bronza888" target="_blank" rel="noopener">bronza888</a>
+                </div>
+                <div class="twitch-card" data-channel="lediya112">
+                    <div class="twitch-status offline">Не в сети</div>
+                    <div class="twitch-embed"></div>
+                    <a href="https://www.twitch.tv/lediya112" target="_blank" rel="noopener">lediya112</a>
                 </div>
             </div>
-
-            <!-- Additional sections for dropdown links -->
-            <div class="tools-grid" style="margin-top: 4rem;">
-                <div class="tool-card section" id="resources">
-                    <div class="tool-icon"><i class="fas fa-book"></i></div>
-                    <h2 class="tool-name">Resources</h2>
-                    <p class="tool-desc">Explore our curated collection of reverse engineering resources, including documentation, research papers, and community forums. Stay updated with the latest techniques and tools in the field.</p>
-                    <p class="tagline">Learn from the community</p>
-                </div>
-
-                <div class="tool-card section" id="tutorials">
-                    <div class="tool-icon"><i class="fas fa-graduation-cap"></i></div>
-                    <h2 class="tool-name">Tutorials</h2>
-                    <p class="tool-desc">Step-by-step guides and tutorials for beginners and advanced users. Learn how to use reverse engineering tools effectively and understand complex software systems.</p>
-                    <p class="tagline">Master the craft</p>
-                </div>
-
-                <div class="tool-card section" id="about">
-                    <div class="tool-icon"><i class="fas fa-info-circle"></i></div>
-                    <h2 class="tool-name">About Us</h2>
-                    <p class="tool-desc">We are a community of reverse engineering enthusiasts dedicated to sharing knowledge and tools. Our mission is to make software analysis accessible to everyone.</p>
-                    <p class="tagline">Join our community</p>
-                </div>
-            </div>
-        </main>
-
-        <footer class="section" id="contact">
-            <p>Reverse Engineering Tools &copy; 2023 | Explore, Analyze, Understand</p>
-            <p class="tagline">Knowledge through deconstruction</p>
-        </footer>
-    </div>
-
+        </section>
+    </main>
     <script>
-        // Create binary rain animation
-        function createBinaryRain() {
-            const container = document.getElementById('binaryAnimation');
-            const digits = '01';
-
-            function createDigit() {
-                const digit = document.createElement('div');
-                digit.className = 'binary-digit';
-                digit.textContent = digits[Math.floor(Math.random() * digits.length)];
-                digit.style.left = Math.random() * 100 + 'vw';
-                digit.style.animationDuration = (Math.random() * 10 + 5) + 's';
-                digit.style.opacity = Math.random() * 0.5 + 0.1;
-                digit.style.fontSize = `${Math.random() * 10 + 14}px`;
-                container.appendChild(digit);
-
-                // Remove digit after animation completes
-                setTimeout(() => {
-                    if (digit.parentNode === container) {
-                        digit.remove();
+        // Expose a small helper to announce live events to screen readers and show visual badge
+        (function() {
+            const liveRegion = document.getElementById('liveRegion');
+            const liveBadge = document.querySelector('.live-badge');
+            window.notifyLive = function(message, ms = 4000) {
+                try {
+                    if (liveRegion) {
+                        liveRegion.textContent = '';
+                        // allow assistive tech to pick up change
+                        setTimeout(() => {
+                            liveRegion.textContent = message;
+                        }, 50);
                     }
-                }, parseFloat(digit.style.animationDuration) * 1000);
-            }
+                    if (liveBadge) {
+                        liveBadge.classList.add('show');
+                        setTimeout(() => liveBadge.classList.remove('show'), ms);
+                    }
+                } catch (e) {
+                    console.warn('notifyLive error', e)
+                }
+            };
+        })();
+    </script>
+    <script>
+        // Twitch channels
+        const twitchChannels = [
+            "alexander_deaf",
+            "kingbumixa",
+            "vesoyz3",
+            "tasmadan",
+            "baksash",
+            "voandrei_",
+            "bykzilla",
+            "ssstied",
+            "bronza888",
+            "lediya112"
+        ];
 
-            // Create initial digits
-            for (let i = 0; i < 50; i++) {
-                setTimeout(createDigit, i * 100);
-            }
+        // Проверка онлайн-статуса через Twitch API (helix)
+        // --- Twitch Helix API интеграция ---
+        // Вставьте свои значения ниже:
+        const TWITCH_CLIENT_ID = 'ВАШ_CLIENT_ID'; // <-- Замените на свой Client-ID
+        const TWITCH_OAUTH_TOKEN = 'ВАШ_OAUTH_TOKEN'; // <-- Bearer ...
 
-            // Create digits at intervals
-            setInterval(createDigit, 150);
-        }
-
-        // Add hover effects to tool cards
-        function addCardEffects() {
-            const cards = document.querySelectorAll('.tool-card');
-
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    card.classList.add('glow');
-                });
-
-                card.addEventListener('mouseleave', () => {
-                    card.classList.remove('glow');
-                });
-            });
-        }
-
-        // Mobile menu toggle
-        function setupMobileMenu() {
-            const hamburger = document.querySelector('.hamburger');
-            const navMenu = document.querySelector('.nav-menu');
-
-            hamburger.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-                hamburger.innerHTML = navMenu.classList.contains('active') ?
-                    '<i class="fas fa-times"></i>' :
-                    '<i class="fas fa-bars"></i>';
-            });
-
-            // Close menu when clicking on a link
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    navMenu.classList.remove('active');
-                    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
-                });
-            });
-        }
-
-        // Smooth scrolling for anchor links
-        function setupSmoothScrolling() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
+        async function checkTwitchStatus(channel) {
+            // Получить статус стрима через Helix API
+            const url = `https://api.twitch.tv/helix/streams?user_login=${channel}`;
+            try {
+                const res = await fetch(url, {
+                    headers: {
+                        'Client-ID': TWITCH_CLIENT_ID,
+                        'Authorization': `Bearer ${TWITCH_OAUTH_TOKEN}`
                     }
                 });
-            });
+                const data = await res.json();
+                // Если массив data пустой — стрим не идет
+                if (data.data && data.data.length > 0) {
+                    return {
+                        live: true,
+                        title: data.data[0].title
+                    };
+                } else {
+                    return {
+                        live: false
+                    };
+                }
+            } catch (e) {
+                console.warn('Twitch API error', e);
+                return {
+                    live: false
+                };
+            }
         }
 
-        // Initialize when page loads
-        window.addEventListener('DOMContentLoaded', () => {
-            createBinaryRain();
-            addCardEffects();
-            setupMobileMenu();
-            setupSmoothScrolling();
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            // Close mobile menu when resizing to desktop
-            if (window.innerWidth > 768) {
-                const navMenu = document.querySelector('.nav-menu');
-                const hamburger = document.querySelector('.hamburger');
-                navMenu.classList.remove('active');
-                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+        async function updateTwitchCards() {
+            for (const channel of twitchChannels) {
+                const card = document.querySelector(`.twitch-card[data-channel="${channel}"]`);
+                if (!card) continue;
+                const statusDiv = card.querySelector('.twitch-status');
+                const embedDiv = card.querySelector('.twitch-embed');
+                const result = await checkTwitchStatus(channel);
+                if (result.live) {
+                    statusDiv.textContent = 'В сети — Стрим начат';
+                    statusDiv.classList.remove('offline');
+                    statusDiv.classList.add('online');
+                    embedDiv.innerHTML = `<iframe src="https://player.twitch.tv/?channel=${channel}&amp;parent=${location.hostname}&amp;muted=true" frameborder="0" allowfullscreen="true" scrolling="no" height="250" width="100%"></iframe>`;
+                } else {
+                    statusDiv.textContent = '';
+                    statusDiv.classList.remove('online');
+                    statusDiv.classList.add('offline');
+                    embedDiv.innerHTML = '';
+                }
             }
-        });
+        }
+
+        // Запуск при загрузке
+        window.addEventListener('DOMContentLoaded', updateTwitchCards);
+        // Периодическое обновление
+        setInterval(updateTwitchCards, 60000);
     </script>
 </body>
+<section aria-labelledby="about">
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+        <h2 id="about" style="margin-bottom: 0.5em;">О сайте</h2>
+        <p style="max-width: 600px;">Этот сайт содержит информацию и ссылки для сообщества DeafDenis2</p>
+    </div>
+</section>
+
+<footer>
+    <p>Telegram Official: <strong>@DeafDenis2YT_777</strong></p>
+    <p>© DeafDenis2</p>
+</footer>
 
 </html>
